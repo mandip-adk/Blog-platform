@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>{{ details_of_blogs.title}}</h3>
+<p>{{details_of_blogs.content}}</p>
+{% if details_of_blogs.image %}
+<img src="{{details_of_blogs.image.url}}" alt="{{details_of_blogs.title}}", height="100">
+{% endif %}
+
+<h2>{{ details_of_blogs.author.username}}</h2>
+<p>Published: {{ details_of_blogs.publication|date:"F j, Y" }}</p>
+
+{% endblock %}

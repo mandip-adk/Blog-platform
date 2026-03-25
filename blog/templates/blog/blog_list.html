@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% for post in all_blogs %}
+
+<h2>{{post.title}}</h2>
+<nav>
+    <a href="{% url 'blog_details' post.pk %}">View details</a>
+</nav>
+<h3>{{post.author.username}}</h3>
+<p>{{post.content|truncatewords:20}}</p>
+<p>{{post.publication}}</p>
+
+{% if post.image %}
+ <img src="{{post.image.url}}" alt="{{post.title}}", height="100">
+
+{% endif %}
+
+{% endfor %}
+{% endblock %}
