@@ -13,11 +13,12 @@
             <a href="{% url 'blog_list' %}">Home</a>
         
 {% if request.user.is_authenticated %}
+     <a href="{% url 'post' %}">Create Post</a>
     <form method="post" action="{% url 'logout' %}" >
     {% csrf_token %}
         <button type="submit">Logout</button>
     </form>
-       
+
 {% else %}  
     
             <a href="{% url 'login' %}">login</a>
@@ -26,6 +27,17 @@
 {% endif %}
         </nav>
     </header>
+
+ <!-- Global messages block -->
+    <div class="container mt-3">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        {% endfor %}
+    </div>
+    
     <main>
         {% block content %}
 
