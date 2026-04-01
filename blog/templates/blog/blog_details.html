@@ -9,4 +9,9 @@
 <h2>{{ details_of_blogs.author.username}}</h2>
 <p>Published: {{ details_of_blogs.publication|date:"F j, Y" }}</p>
 
+{% if request.user == details_of_blogs.author %}
+    <a href="{% url 'edit_post' details_of_blogs.pk %}">Edit</a>
+    <a href="{% url 'delete_post' details_of_blogs.pk %}">Delete</a>
+{% endif %}
 {% endblock %}
+ 
