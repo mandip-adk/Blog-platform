@@ -15,6 +15,7 @@ urlpatterns = [
     path("blog/post/<int:pk>/delete", delete_post, name= "delete_post"),
     path("blog/post/<int:pk>/edit_comment", comment_edit,name= "edit_comment"),
     path("blog/post/<int:pk>/delete_comment", comment_delete, name="delete_comment"),
+    
     #For API
     path("", include(router.urls)),
     

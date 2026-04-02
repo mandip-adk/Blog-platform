@@ -1,20 +1,44 @@
 {% extends "base.html" %}
 
 {% block content %}
-{% for post in all_blogs %}
-
-<h2>{{post.title}}</h2>
-<nav>
-    <a href="{% url 'blog_details' post.pk %}">View details</a>
-</nav>
-<h3>{{post.author.username}}</h3>
-<p>{{post.content|truncatewords:20}}</p>
-<p>{{post.publication}}</p>
-
-{% if post.image %}
- <img src="{{post.image.url}}" alt="{{post.title}}", height="100">
-
+<form method="GET" action="{% url 'blog_list' %}">
+    <input type="text" name="q" value="{{ request.GET.q }}">
+    <button type="submit">Search</button>
+</form>
+{% if request.GET.q %}
+    <a href="{% url 'blog_list' %}">Clear</a>
 {% endif %}
+{% for post in page_obj %}
+    <h2>{{ post.title }}</h2>
+    <nav>
+        <a href="{% url 'blog_details' post.pk %}">View details</a>
+    </nav>
+    <h3>{{ post.author.username }}</h3>
+    <p>{{ post.content|truncatewords:20 }}</p>
+    <p>{{ post.publication }}</p>
 
+    {% if post.image %}
+        <img src="{{ post.image.url }}" alt="{{ post.title }}" height="100">
+    {% endif %}
+{% empty %}
+    <p>No blogs found.</p>
 {% endfor %}
+
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
+            Previous
+        </a>
+    {% endif %}
+
+    <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
+            Next
+        </a>
+    {% endif %}
+</div>
+
+
 {% endblock %}

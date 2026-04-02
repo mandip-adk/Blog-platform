@@ -6,12 +6,20 @@ from .forms import BlogForm, CommentForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
-
+from django.core.paginator import Paginator
 
 #Lists all blog post
 def blog_list(request):
     posts = Blog.objects.all()
-    return render(request, "blog/blog_list.html", {"all_blogs": posts})
+    query = request.GET.get("q")
+    if query:
+        posts = Blog.objects.filter(title__icontains=query)
+    else:
+        posts = Blog.objects.all()
+    paginator = Paginator(posts,7)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    return render(request, "blog/blog_list.html", {"all_blogs": posts, "page_obj": page_obj})
 
 #Show details of single blog post
 def blog_details(request, pk):
