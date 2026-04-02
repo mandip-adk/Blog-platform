@@ -26,7 +26,7 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['blog-platform-w9v5.onrender.com', 'localhost']
 
 
 # Application definition
