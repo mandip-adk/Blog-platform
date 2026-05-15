@@ -44,7 +44,17 @@
       {% if blog.image %}
         <div class="mb-2">
           <img src="{{ blog.image.url }}" alt="Current image" class="img-thumbnail" style="max-height: 200px;">
-          <p class="text-muted small mt-1">Current image — upload a new one to replace it</p>
+        </div>
+        <div class="form-check mb-2">
+          <input
+            type="checkbox"
+            name="image-clear"
+            id="image-clear-id"
+            class="form-check-input"
+          >
+          <label for="image-clear-id" class="form-check-label text-danger">
+            Remove current image
+          </label>
         </div>
       {% endif %}
       <input
